@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.com.sulti</groupId>
+    <artifactId>SulTiRemoveComentariosJavaClasses</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>SulTiRemoveComentarios</name>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <build>
+        <directory>${basedir}/target</directory>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!--  DEFINE O PLUGIN MAVEN RESPONSÁVEL POR COMPILAR O PROJETO SUA VERSÃO E O JDK UTILIZADO   -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+            <!--  DEFINE AS CONFIGURAÇÕES DO MAVEN ASSEMBLER   -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <!--  DEFINE QUAL É A CLASSE MAIN DA APLICAÇÃO   -->
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>br.com.sulti.removecomentariosjavaclasses.frame</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!--  DETERMINO QUE O JAR GERADO INCLUIRÁ AS DEPENDÊNCIAS E ELAS SERÃO EMPACOTADAS JUNTO COM O PROJETO EM UM ÚNICO JAR   -->
+                        <id>make-my-jar-with-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <!--  ADICIONO AO NOME DO JAR FINAL UM COMPLEMENTO DIZENDO QUE ELE CONTÉM AS DEPENDÊNCIAS   -->
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <!--  ALTERO O NOME DO JAR FINAL   -->
+                            <finalName>${project.artifactId}-full</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
